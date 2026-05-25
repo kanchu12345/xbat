@@ -1,0 +1,395 @@
+/* Modern Dark Institutional Trading Dashboard CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Colors */
+  --bg-deep: #05070c;
+  --bg-navy: #090e1a;
+  --bg-card: rgba(13, 20, 35, 0.65);
+  --bg-card-hover: rgba(19, 29, 51, 0.8);
+  
+  --neon-green: #00e676;
+  --neon-green-glow: rgba(0, 230, 118, 0.45);
+  --neon-orange: #ff6d00;
+  --neon-orange-glow: rgba(255, 109, 0, 0.4);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --text-dark-muted: #334155;
+  
+  --border-slate: rgba(255, 255, 255, 0.07);
+  --border-glow: rgba(0, 230, 118, 0.25);
+  
+  /* Fonts */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* Base resets & styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-dark-muted);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Dynamic Ambient Glow Overlays */
+.bg-ambient-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(9, 14, 26, 0.95) 0%, rgba(5, 7, 12, 1) 90%),
+    radial-gradient(circle at 80% 20%, rgba(0, 230, 118, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 20% 80%, rgba(255, 109, 0, 0.03) 0%, transparent 45%);
+}
+
+/* Institutional Grid Pattern overlay */
+.bg-grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Hero background container */
+.hero-bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18; /* Soft low-opacity for beautiful background depth */
+  pointer-events: none;
+  z-index: -2;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(5, 7, 12, 0.1) 0%, rgba(5, 7, 12, 0.95) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Typography styles */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+.heading-gradient {
+  background: linear-gradient(135deg, #ffffff 30%, #e2e8f0 60%, rgba(0, 230, 118, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ticker tape ribbon */
+.ticker-wrap {
+  width: 100%;
+  background: rgba(9, 14, 26, 0.9);
+  border-bottom: 1px solid var(--border-slate);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.ticker {
+  display: flex;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.ticker-green {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px rgba(0, 230, 118, 0.2);
+}
+
+.ticker-orange {
+  color: var(--neon-orange);
+  text-shadow: 0 0 10px rgba(255, 109, 0, 0.2);
+}
+
+/* Animated sliding */
+.ticker-move {
+  animation: ticker-slide 25s linear infinite;
+  display: flex;
+}
+
+.ticker-move:hover {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-slide {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Glassmorphic elements */
+.glass-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-slate);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Glowing Green Telegram CTA Button */
+.cta-button-glow {
+  background: var(--neon-green);
+  color: #030712;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 0 15px rgba(0, 230, 118, 0.4),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  animation: pulse-glow 2s infinite ease-in-out;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-button-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: 0.75s;
+  animation: shine 4s infinite ease-in-out;
+  z-index: -1;
+}
+
+.cta-button-glow:hover {
+  transform: scale(1.04) translateY(-2px);
+  background: #00ff88;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.7),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.cta-button-glow:active {
+  transform: scale(0.98) translateY(1px);
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 15px rgba(0, 230, 118, 0.4),
+      0 0 0 0px rgba(0, 230, 118, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 
+      0 0 25px rgba(0, 230, 118, 0.6),
+      0 0 0 15px rgba(0, 230, 118, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 
+      0 0 15px rgba(0, 230, 118, 0.4),
+      0 0 0 0px rgba(0, 230, 118, 0);
+  }
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  35% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* Pulsing Online Status Indicator */
+.pulse-indicator {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--neon-green);
+}
+
+.pulse-indicator::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--neon-green);
+  opacity: 0;
+  animation: ripple 1.8s infinite cubic-bezier(0.24, 0, 0.38, 1);
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Mockup Candlestick animations/details */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border-bottom: 1px solid var(--border-slate);
+  background: radial-gradient(circle at bottom, rgba(0, 230, 118, 0.05) 0%, transparent 70%);
+}
+
+.candlestick {
+  position: absolute;
+  width: 8px;
+  background-color: var(--neon-green);
+  border-radius: 1px;
+}
+
+.candlestick.bearish {
+  background-color: var(--neon-orange);
+}
+
+.candlestick::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  width: 2px;
+  height: calc(100% + 20px);
+  background-color: inherit;
+  z-index: -1;
+}
+
+.candlestick.bullish::before {
+  top: -10px;
+}
+.candlestick.bearish::before {
+  top: -10px;
+}
+
+/* Subtle glow indicators for cards */
+.accent-border-green {
+  border-left: 3px solid var(--neon-green);
+}
+.accent-border-orange {
+  border-left: 3px solid var(--neon-orange);
+}
+
+/* Grid layout tweak for dashboard components */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 400px;
+  background: #090e1a;
+  border-radius: 12px;
+  border: 1px solid var(--border-slate);
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
