@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Trading Academy - Institutional Crypto Trading Education</title>
+  <meta name="description" content="Master market trends with institutional-grade crypto trading analysis. Learn advanced market structure, volume profile, and order flow. Join our Telegram.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'apex-deep': '#05070c',
+            'apex-navy': '#090e1a',
+            'apex-green': '#00e676',
+            'apex-orange': '#ff6d00',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Custom Core Design Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body class="bg-apex-deep text-slate-100 antialiased overflow-x-hidden">
+
+  <!-- Background Ambience Overlays -->
+  <div class="bg-ambient-glow"></div>
+  <div class="bg-grid-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-50 w-full bg-apex-deep/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2 font-black tracking-widest text-lg sm:text-xl font-heading text-white">
+        <span class="text-apex-green">APEX</span>
+        <span class="text-slate-400 font-light">//</span>
+        <span class="tracking-normal font-semibold">TRADING ACADEMY</span>
+      </a>
+
+      <!-- Live Dashboard Status -->
+      <div class="flex items-center gap-3 bg-slate-950/60 border border-white/5 px-3 py-1.5 rounded-full text-xs font-mono">
+        <span class="pulse-indicator"></span>
+        <span class="text-slate-400 hidden sm:inline">LIVE FEED:</span>
+        <span class="text-apex-green font-bold tracking-wider" id="live-status-text">SYSTEMS ONLINE</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Live Market Ticker Tape Ribbon -->
+  <section class="ticker-wrap" aria-label="Live crypto prices ticker">
+    <div class="ticker">
+      <div class="ticker-move">
+        <!-- Loop Item 1 -->
+        <div class="ticker__item">
+          <span class="text-slate-400 font-bold mr-2">BTC/USD</span>
+          <span id="btc-price" class="text-slate-100 font-semibold font-mono">$92,450.75</span>
+          <span id="btc-change" class="ticker-green ml-1 font-mono">+4.82%</span>
+        </div>
+        <!-- Loop Item 2 -->
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">ETH/USD</span>
+          <span id="eth-price" class="text-slate-100 font-semibold font-mono">$3,422.50</span>
+          <span id="eth-change" class="ticker-green ml-1 font-mono">+2.15%</span>
+        </div>
+        <!-- Loop Item 3 -->
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">SOL/USD</span>
+          <span id="sol-price" class="text-orange-400 font-semibold font-mono">$184.65</span>
+          <span id="sol-change" class="ticker-orange ml-1 font-mono">-1.48%</span>
+        </div>
+        <!-- Loop Item 4 -->
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">LINK/USD</span>
+          <span id="link-price" class="text-slate-100 font-semibold font-mono">$17.82</span>
+          <span id="link-change" class="ticker-green ml-1 font-mono">+6.74%</span>
+        </div>
+        <!-- Loop Item 5 -->
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">BNB/USD</span>
+          <span id="bnb-price" class="text-slate-100 font-semibold font-mono">$612.40</span>
+          <span id="bnb-change" class="ticker-green ml-1 font-mono">+0.85%</span>
+        </div>
+
+        <!-- Repeated Items for seamless infinite scroll -->
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">BTC/USD</span>
+          <span id="btc-price-dup" class="text-slate-100 font-semibold font-mono">$92,450.75</span>
+          <span id="btc-change-dup" class="ticker-green ml-1 font-mono">+4.82%</span>
+        </div>
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">ETH/USD</span>
+          <span id="eth-price-dup" class="text-slate-100 font-semibold font-mono">$3,422.50</span>
+          <span id="eth-change-dup" class="ticker-green ml-1 font-mono">+2.15%</span>
+        </div>
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">SOL/USD</span>
+          <span id="sol-price-dup" class="text-orange-400 font-semibold font-mono">$184.65</span>
+          <span id="sol-change-dup" class="ticker-orange ml-1 font-mono">-1.48%</span>
+        </div>
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">LINK/USD</span>
+          <span id="link-price-dup" class="text-slate-100 font-semibold font-mono">$17.82</span>
+          <span id="link-change-dup" class="ticker-green ml-1 font-mono">+6.74%</span>
+        </div>
+        <div class="ticker__item border-l border-white/5">
+          <span class="text-slate-400 font-bold mr-2">BNB/USD</span>
+          <span id="bnb-price-dup" class="text-slate-100 font-semibold font-mono">$612.40</span>
+          <span id="bnb-change-dup" class="ticker-green ml-1 font-mono">+0.85%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero Section -->
+  <section class="relative pt-20 pb-24 md:pt-32 md:pb-36 flex flex-col items-center overflow-hidden min-h-[85vh] justify-center px-4">
+    <!-- AI Background Image and Gradients -->
+    <div class="hero-bg-container"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="max-w-5xl mx-auto text-center z-10">
+      
+      <!-- Premium Tag -->
+      <span class="inline-flex items-center gap-2 bg-slate-900/80 border border-white/10 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300 mb-6 backdrop-blur-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-apex-orange animate-ping"></span>
+        Institutional Orderflow Hub
+      </span>
+
+      <!-- Main Heading -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight max-w-4xl mx-auto mb-6">
+        <span class="heading-gradient block">Master Market Trends</span>
+        <span class="text-white block mt-2">with Institutional-Grade Analysis.</span>
+      </h1>
+
+      <!-- Subheading -->
+      <p class="text-base sm:text-lg md:text-xl text-slate-300 font-light max-w-3xl mx-auto leading-relaxed mb-10 px-2">
+        Follow advanced market structure and volume analysis of major digital assets across global markets, featuring high-quality educational insights to help you build data-driven trading decisions.
+      </p>
+
+      <!-- Primary High-Conversion CTA Container -->
+      <div class="flex flex-col items-center gap-4 mb-16">
+        <a href="https://t.me/" target="_blank" rel="noopener noreferrer" 
+           class="cta-button-glow px-8 py-5 sm:px-10 sm:py-6 text-base sm:text-lg w-full sm:w-auto uppercase"
+           id="primary-cta-button">
+          <!-- Telegram Icon -->
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-.97.53-1.35.52-.42-.01-1.23-.24-1.83-.44-.74-.24-1.33-.37-1.28-.79.03-.22.33-.45.91-.69 3.56-1.55 5.94-2.57 7.14-3.07 3.4-1.42 4.1-1.67 4.56-1.68.1 0 .32.02.46.14.12.1.15.24.16.34z"/>
+          </svg>
+          <span>JOIN NOW ON TELEGRAM</span>
+        </a>
+        <span class="text-xs text-slate-500 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-apex-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          Instant Free Access • No Credit Card Required
+        </span>
+      </div>
+
+      <!-- Live Statistics Counts (Social Proof & Authority) -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto pt-6 border-t border-white/5 bg-slate-950/20 rounded-2xl p-6 backdrop-blur-sm">
+        <div class="text-center">
+          <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white font-heading stat-counter" data-target="12480" data-suffix="+">0</p>
+          <p class="text-xs uppercase tracking-wider text-slate-400 mt-1 font-mono">Members Enrolled</p>
+        </div>
+        <div class="text-center border-l border-white/5">
+          <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-apex-green font-heading stat-counter" data-target="78.4" data-suffix="%" data-float="true">0.0%</p>
+          <p class="text-xs uppercase tracking-wider text-slate-400 mt-1 font-mono">Average Win Rate</p>
+        </div>
+        <div class="text-center border-l border-white/5">
+          <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white font-heading stat-counter" data-target="15" data-suffix="+">0</p>
+          <p class="text-xs uppercase tracking-wider text-slate-400 mt-1 font-mono">Active Analysts</p>
+        </div>
+        <div class="text-center border-l border-white/5">
+          <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-apex-orange font-heading stat-counter" data-target="98.2" data-suffix="%" data-float="true">0.0%</p>
+          <p class="text-xs uppercase tracking-wider text-slate-400 mt-1 font-mono">Satisfaction Score</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Institutional Pillars Section -->
+  <section class="py-20 bg-slate-950/40 relative z-10 px-4">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Headers -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-apex-green text-xs font-mono font-bold tracking-widest uppercase">// Elite Trading Education</span>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mt-2 mb-4 font-heading">
+          Institutional Analysis Pillars
+        </h2>
+        <p class="text-slate-400 font-light">
+          We strip away complex retail indicators and focus strictly on the raw data algorithms used by professional liquidity providers.
+        </p>
+      </div>
+
+      <!-- Pillars Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Pillar Card 1 -->
+        <div class="glass-panel accent-border-green p-8 flex flex-col justify-between h-full">
+          <div>
+            <div class="w-12 h-12 rounded-lg bg-apex-green/10 flex items-center justify-center border border-apex-green/20 mb-6">
+              <svg class="w-6 h-6 text-apex-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 font-heading">Order Flow & Liquidity Mapping</h3>
+            <p class="text-slate-400 text-sm font-light leading-relaxed">
+              Identify key areas where big banks aggregate stop losses. Trade directly in the slipstream of mega-order entries, bypassing retail trap setups.
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-white/5 flex items-center text-xs text-slate-400 font-semibold tracking-wider font-mono uppercase">
+            <span class="text-apex-green mr-1.5">//</span> MODULE 1 COMPLETE
+          </div>
+        </div>
+
+        <!-- Pillar Card 2 -->
+        <div class="glass-panel accent-border-orange p-8 flex flex-col justify-between h-full">
+          <div>
+            <div class="w-12 h-12 rounded-lg bg-apex-orange/10 flex items-center justify-center border border-apex-orange/20 mb-6">
+              <svg class="w-6 h-6 text-apex-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 font-heading">Volume Profile & Delta</h3>
+            <p class="text-slate-400 text-sm font-light leading-relaxed">
+              Analyze high-volume nodes and real-time delta imbalances. Learn to decode volume accumulation levels to enter precisely when big buying flows kick in.
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-white/5 flex items-center text-xs text-slate-400 font-semibold tracking-wider font-mono uppercase">
+            <span class="text-apex-orange mr-1.5">//</span> MODULE 2 COMPLETE
+          </div>
+        </div>
+
+        <!-- Pillar Card 3 -->
+        <div class="glass-panel accent-border-green p-8 flex flex-col justify-between h-full">
+          <div>
+            <div class="w-12 h-12 rounded-lg bg-apex-green/10 flex items-center justify-center border border-apex-green/20 mb-6">
+              <svg class="w-6 h-6 text-apex-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 font-heading">Macro Trend Structure</h3>
+            <p class="text-slate-400 text-sm font-light leading-relaxed">
+              Isolate macro trend shifts from noise. Formulate systematic rules for tracking global market liquidity across major spot, futures, and derivative exchanges.
+            </p>
+          </div>
+          <div class="pt-6 mt-6 border-t border-white/5 flex items-center text-xs text-slate-400 font-semibold tracking-wider font-mono uppercase">
+            <span class="text-apex-green mr-1.5">//</span> MODULE 3 COMPLETE
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Student Dashboard Terminal Preview -->
+  <section class="py-20 relative z-10 px-4">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Headers -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-apex-orange text-xs font-mono font-bold tracking-widest uppercase">// The Experience</span>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mt-2 mb-4 font-heading">
+          Student Analysis Dashboard
+        </h2>
+        <p class="text-slate-400 font-light">
+          Peek inside the exact channels and institutional chart feeds our members use every single day.
+        </p>
+      </div>
+
+      <!-- Dashboard UI Mockup Wrapper -->
+      <div class="glass-panel p-2 sm:p-4 max-w-5xl mx-auto bg-slate-950/80 shadow-2xl relative">
+        
+        <!-- OS Title Bar -->
+        <div class="flex items-center justify-between px-3 py-2 border-b border-white/5 font-mono text-[10px] sm:text-xs text-slate-500 mb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/60 inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/60 inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/60 inline-block"></span>
+            <span class="ml-2 font-semibold">APEX_CORE_TERMINAL.exe</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="hidden sm:inline">PING: <strong class="text-apex-green">14ms</strong></span>
+            <span>MEMBERS ONLINE: <strong class="text-white" id="live-member-counter">12,480</strong></span>
+          </div>
+        </div>
+
+        <!-- Terminal Workspace Grid -->
+        <div class="dashboard-grid bg-slate-950">
+          
+          <!-- Sidebar -->
+          <div class="border-r border-white/5 p-4 flex flex-col justify-between font-mono text-xs text-slate-400">
+            <div>
+              <p class="text-[10px] text-slate-600 font-bold uppercase tracking-wider mb-4">// FEEDS & SECTIONS</p>
+              <ul class="space-y-2">
+                <li class="flex items-center gap-2 text-slate-500 bg-white/5 py-1.5 px-3 rounded border-l-2 border-slate-600">
+                  <span>#</span> core-updates
+                </li>
+                <li class="flex items-center justify-between text-white bg-apex-green/10 py-1.5 px-3 rounded border-l-2 border-apex-green">
+                  <span class="flex items-center gap-2"><span>#</span> live-signals</span>
+                  <span class="w-2 h-2 rounded-full bg-apex-green animate-ping"></span>
+                </li>
+                <li class="flex items-center gap-2 hover:text-white hover:bg-white/5 py-1.5 px-3 rounded transition-all cursor-pointer">
+                  <span>#</span> volume-profiles
+                </li>
+                <li class="flex items-center gap-2 hover:text-white hover:bg-white/5 py-1.5 px-3 rounded transition-all cursor-pointer">
+                  <span>#</span> macro-insights
+                </li>
+                <li class="flex items-center gap-2 hover:text-white hover:bg-white/5 py-1.5 px-3 rounded transition-all cursor-pointer">
+                  <span>#</span> ask-questions
+                </li>
+              </ul>
+            </div>
+            
+            <div class="pt-4 border-t border-white/5">
+              <p class="text-[10px] text-slate-600 font-bold uppercase tracking-wider mb-2">// BOT STATUS</p>
+              <div class="flex items-center gap-2 text-[11px]">
+                <span class="w-1.5 h-1.5 rounded-full bg-apex-green inline-block"></span>
+                <span>ORDER_ALGO: <strong class="text-white">ACTIVE</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Dashboard Workspace -->
+          <div class="flex flex-col">
+            
+            <!-- Dynamic Chart Area -->
+            <div class="chart-container flex items-end justify-around px-8 pb-4">
+              <!-- Grid background guides inside canvas -->
+              <div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-40 p-4">
+                <div class="border-b border-white/5 w-full"></div>
+                <div class="border-b border-white/5 w-full"></div>
+                <div class="border-b border-white/5 w-full"></div>
+                <div class="border-b border-white/5 w-full"></div>
+              </div>
+
+              <!-- CSS Styled Interactive Candlesticks -->
+              <div class="candlestick bullish h-[60px]" style="bottom: 40px;" title="Volume Spike"></div>
+              <div class="candlestick bullish h-[90px]" style="bottom: 70px;"></div>
+              <div class="candlestick bearish h-[50px] bearish" style="bottom: 80px;"></div>
+              <div class="candlestick bearish h-[40px] bearish" style="bottom: 60px;"></div>
+              <div class="candlestick bullish h-[110px]" style="bottom: 50px;" title="Liquidity Pool Swept"></div>
+              <div class="candlestick bullish h-[140px]" style="bottom: 120px;"></div>
+              <div class="candlestick bearish h-[80px] bearish" style="bottom: 100px;"></div>
+              
+              <!-- Glow Signal Overlay -->
+              <div class="absolute top-10 right-10 bg-apex-green/95 text-slate-950 font-bold font-mono text-[10px] px-2.5 py-1 rounded shadow-lg animate-pulse flex items-center gap-1.5 z-10">
+                <span>⚡ LONG SIGNAL CONFIRMED</span>
+              </div>
+            </div>
+
+            <!-- Signal Output Log -->
+            <div class="p-4 border-t border-white/5 font-mono text-xs">
+              <p class="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-2">// REAL-TIME RADAR LOGS</p>
+              <div class="space-y-2">
+                <div class="flex items-start gap-2 bg-slate-900/60 p-2.5 rounded border border-white/5">
+                  <span class="text-apex-green font-bold">[15:32:01]</span>
+                  <div>
+                    <span class="text-white font-bold">BTC/USD Buy Entry Alert</span> 
+                    <span class="text-slate-400 font-light block mt-0.5">Entry Zone: $91,950-$92,100 | Target 1: $93,400 | Stop Loss: $91,200</span>
+                  </div>
+                </div>
+                <div class="flex items-start gap-2 bg-slate-900/40 p-2.5 rounded border border-white/5">
+                  <span class="text-apex-green font-bold">[14:10:48]</span>
+                  <div>
+                    <span class="text-white font-bold">SOL/USD Target 1 Smashed (+3.4R)</span>
+                    <span class="text-slate-400 font-light block mt-0.5">Liquidity grabbed at local high, securing 50% partial profits automatically.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 bg-slate-950/40 relative z-10 px-4">
+    <div class="max-w-4xl mx-auto">
+      
+      <!-- Section Headers -->
+      <div class="text-center mb-16">
+        <span class="text-apex-green text-xs font-mono font-bold tracking-widest uppercase">// Q&A Help</span>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mt-2 mb-4 font-heading">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-slate-400 font-light">
+          Have questions before you make data-driven decisions? Here are quick answers to our most common inquiries.
+        </p>
+      </div>
+
+      <!-- FAQ Accordion List -->
+      <div class="space-y-4">
+        
+        <!-- Accordion Item 1 -->
+        <div class="faq-item glass-panel !bg-slate-950/50 hover:!bg-slate-950/80 border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-header w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none transition-all" aria-expanded="false">
+            <span class="font-semibold text-white sm:text-lg">What kind of trading strategies do you teach?</span>
+            <svg class="faq-arrow w-5 h-5 text-slate-400 transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 text-sm sm:text-base text-slate-400 font-light leading-relaxed border-t border-white/5 pt-4">
+              We specialize in institutional order flow, volume profile analysis, macro liquidity mapping, and advanced price structures. We avoid retail trading concepts like generic moving crossovers and trendlines, focusing strictly on high-probability liquidity pools and trade execution.
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="faq-item glass-panel !bg-slate-950/50 hover:!bg-slate-950/80 border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-header w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none transition-all" aria-expanded="false">
+            <span class="font-semibold text-white sm:text-lg">Is this suitable for absolute beginners?</span>
+            <svg class="faq-arrow w-5 h-5 text-slate-400 transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 text-sm sm:text-base text-slate-400 font-light leading-relaxed border-t border-white/5 pt-4">
+              Yes. While the concepts we teach are institutional-grade and advanced, our onboarding process breaks down every fundamental building block. You'll move from basic market structure to complex volume profiling incrementally.
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="faq-item glass-panel !bg-slate-950/50 hover:!bg-slate-950/80 border border-white/5 rounded-xl overflow-hidden">
+          <button class="faq-header w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none transition-all" aria-expanded="false">
+            <span class="font-semibold text-white sm:text-lg">How much does it cost to join the Telegram channel?</span>
+            <svg class="faq-arrow w-5 h-5 text-slate-400 transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-6 text-sm sm:text-base text-slate-400 font-light leading-relaxed border-t border-white/5 pt-4">
+              Joining our main educational Telegram feed is currently 100% free. We offer daily chart breakdowns, educational analyses, and market briefs to help you improve your analytical abilities.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Secondary CTA Section -->
+  <section class="py-24 relative z-10 px-4 overflow-hidden border-t border-white/5">
+    <div class="max-w-4xl mx-auto text-center relative bg-gradient-to-b from-slate-950/40 to-slate-950/90 border border-white/5 rounded-3xl p-8 sm:p-16 shadow-2xl">
+      <!-- Glow bubble behind CTA -->
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-apex-green/10 blur-[100px] pointer-events-none"></div>
+
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading tracking-tight mb-4">
+        Ready to Trade with the Smart Money?
+      </h2>
+      <p class="text-slate-300 text-sm sm:text-base font-light leading-relaxed max-w-2xl mx-auto mb-10">
+        Skip the trial-and-error. Gain access to premium setups, volume profiles, and a growing community of serious crypto traders. Click below to start immediately.
+      </p>
+
+      <div class="flex flex-col items-center gap-4">
+        <a href="https://t.me/" target="_blank" rel="noopener noreferrer" 
+           class="cta-button-glow px-8 py-5 sm:px-10 sm:py-6 text-base sm:text-lg w-full sm:w-auto uppercase"
+           id="secondary-cta-button">
+          <!-- Telegram Icon -->
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-.97.53-1.35.52-.42-.01-1.23-.24-1.83-.44-.74-.24-1.33-.37-1.28-.79.03-.22.33-.45.91-.69 3.56-1.55 5.94-2.57 7.14-3.07 3.4-1.42 4.1-1.67 4.56-1.68.1 0 .32.02.46.14.12.1.15.24.16.34z"/>
+          </svg>
+          <span>JOIN TELEGRAM NOW</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal Disclaimer Footer -->
+  <footer class="bg-black/60 border-t border-white/5 py-8 px-4 text-center relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <p class="text-[10px] sm:text-xs text-slate-500 font-light leading-relaxed max-w-3xl mx-auto">
+        Disclaimer: We do not provide financial advice. Trading cryptocurrency involves high risk. This website is for educational purposes only. This site is not a part of the Facebook website or Meta Platforms, Inc.
+      </p>
+      <div class="mt-4 text-[10px] text-slate-600 font-mono tracking-widest flex flex-col sm:flex-row items-center justify-center gap-2">
+        <span>&copy; 2026 APEX TRADING ACADEMY. ALL RIGHTS RESERVED.</span>
+        <span class="hidden sm:inline text-slate-700">//</span>
+        <span>DESIGNED BY <a href="https://web.facebook.com/profile.php?id=100082101311247" target="_blank" rel="noopener noreferrer" class="text-apex-green hover:text-white hover:underline font-bold transition-all">INFINITE DESIGN</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Import -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
