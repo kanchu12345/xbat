@@ -18,16 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
           return response.text();
         })
         .then(csvText => {
-          // Parse CSV (split by carriage return/newline)
-          const rows = csvText.split(/\r?\n/);
-          if (rows.length > 1) {
-            const liveUrl = rows[1].trim();
-            // Validate that it's a real link
-            if (liveUrl && liveUrl.startsWith("http")) {
-              if (primaryCTA) primaryCTA.href = liveUrl;
-              if (secondaryCTA) secondaryCTA.href = liveUrl;
-              console.log("Telegram URL synced live from Google Sheets: ", liveUrl);
-            }
+          // Parse CSV: find the first token that starts with http
+          const tokens = csvText.split(/[\r\n,]+/);
+          const liveUrl = tokens.find(t => t.trim().startsWith("http"));
+          if (liveUrl) {
+            const cleanUrl = liveUrl.trim();
+            if (primaryCTA) primaryCTA.href = cleanUrl;
+            if (secondaryCTA) secondaryCTA.href = cleanUrl;
+            console.log("Telegram URL synced live from Google Sheets: ", cleanUrl);
           }
         })
         .catch(error => {
